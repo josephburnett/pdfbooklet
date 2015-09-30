@@ -23,6 +23,6 @@ Becomes a booklet with 10 pages that can be stapled and folded.  The input pages
 
 ## Prerequisites
 
-1. Input must have an even number of pages.
+1. Input must have a page count which is a multiple of 4.
 2. Requires [`cpdf`](http://community.coherentpdf.com/)
 3. Requires `pdfinfo` (part of a standard Linux distro)

@@ -9,11 +9,16 @@
 set -e
 
 PAGE_SIZE=$(pdfinfo $1 | grep Pages | awk '{ print $2 }')
+if [[ "$(($PAGE_SIZE % 4))" -ne "0" ]]; then
+    echo "Input pdf does not have a page count which is a multiple of 4."
+    echo "Try adding some blank pages."
+    exit 1
+fi
 MEDIAN=$(( $PAGE_SIZE / 2 ))
 
 PAGE_LIST="~1,1,2,~2"
 for i in $(seq 3 2 $MEDIAN); do
-  PAGE_LIST=$PAGE_LIST,~$i,$i,$(($i+1)),~$(($i+1))
+    PAGE_LIST=$PAGE_LIST,~$i,$i,$(($i+1)),~$(($i+1))
 done
 
 cpdf $1 $PAGE_LIST -o $2
